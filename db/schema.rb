@@ -10,14 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_10_070217) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_18_194848) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
+  end
 
   create_table "jwt_denylist", force: :cascade do |t|
     t.string "jti", null: false
     t.datetime "exp", null: false
     t.index ["jti"], name: "index_jwt_denylist_on_jti"
+  end
+
+  create_table "message_templates", force: :cascade do |t|
+    t.string "name"
+    t.text "template"
+    t.text "is_enabled", default: "t"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -28,8 +39,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_070217) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "username"
+    t.string "phone"
+    t.string "otp"
+    t.datetime "otp_confirmed_at"
+    t.integer "otp_attempt", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "whatsapp_credentials", force: :cascade do |t|
+    t.string "number"
+    t.string "token"
+    t.boolean "is_enabled", default: true
   end
 
 end
