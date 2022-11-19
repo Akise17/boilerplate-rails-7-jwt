@@ -135,6 +135,7 @@ GEM
     jsonapi.rb (2.0.0)
       jsonapi-serializer
       rack
+    jsonapi_errors_handler (0.6.0)
     jwt (2.5.0)
     loofah (2.18.0)
       crass (~> 1.0.2)
@@ -285,6 +286,7 @@ DEPENDENCIES
   httparty
   importmap-rails
   jsonapi.rb
+  jsonapi_errors_handler
   pg (>= 0.18, < 2.0)
   pg_search
   puma (~> 5.0)

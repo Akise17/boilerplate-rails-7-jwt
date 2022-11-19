@@ -4,7 +4,7 @@ class Api::V1::Users::SessionsController < Devise::SessionsController
 
   def create
     @user = User.find_by_phone(params[:phone])
-    return login_failed if user.nil?
+    return login_failed if @user.nil?
 
     verification = @user.otp_verify(params[:otp])
     return login_success if verification

@@ -1,7 +1,7 @@
 class User < ApplicationRecord
-  require 'securerandom'
-
   include Notification::WhatsappHelper
+
+  validates :phone, presence: true
 
   has_one_time_password column_name: :otp,
                         length: 6,

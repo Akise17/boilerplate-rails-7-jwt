@@ -1,6 +1,6 @@
-require_relative "boot"
-
-require "rails/all"
+require_relative 'boot'
+require 'jsonapi_errors_handler'
+require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -13,7 +13,7 @@ module BoilerplateJwtPostgress311
     config.session_store :cookie_store, key: '_interslice_session'
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use config.session_store, config.session_options
-
+    config.eager_load_paths << Rails.root.join("lib")
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

@@ -26,6 +26,7 @@ class Api::V1::Users::RegistrationsController < Devise::RegistrationsController
   def sign_up_params
     user = params[:user]
     params[:user][:email] = "#{user[:phone]}@mail.com" unless user[:email].present?
+    params[:user][:password] = "#{user[:phone]}-#{Time.now.to_i}"
     params.require(:user)
           .permit(:email,
                   :password,
