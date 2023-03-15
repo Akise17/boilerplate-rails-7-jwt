@@ -1,24 +1,26 @@
-# README
+# Rails Boilerplate
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Features
 
-Things you may want to cover:
+This template comes with:
+- Schema
+  - Users table
+- Endpoints
+  - Sign up with user credentials
+  - Sign in with user credentials
+  - Sign out
 
-* Ruby version
+## Prerequisite
+- Ruby 3.1.1
+- Postgresql >= 9.6
 
-* System dependencies
+## How to use
 
-* Configuration
+1. Clone this repo
+2. Install PostgreSQL
+3. Update `config/application.yml` configuration.
+4. Generate a secret key with `rails secret` and paste this value into the `application.yml`.
+5. `rails db:setup`
+6. `rails s`
+7. You can now try your REST services!
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
