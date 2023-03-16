@@ -6,6 +6,12 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :test
+      resources :assets do
+        member do
+          put :lent
+        end
+      end
+      resources :staffs
     end
   end
 end

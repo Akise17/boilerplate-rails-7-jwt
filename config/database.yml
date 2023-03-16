@@ -1,12 +1,12 @@
 default: &default
-  adapter: postgresql
+  adapter: postgis
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   host: localhost
   port: 5432
-  username: dev
-  password: 12345678
-  database: boilerplate_dev
+  username: liggar
+  password: Prayoga1!
+  database: tutorial
 
 development:
   <<: *default
