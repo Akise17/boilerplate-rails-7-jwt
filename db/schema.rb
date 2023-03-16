@@ -10,14 +10,50 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_10_070217) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_16_054532) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "assets", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "serial_number"
+    t.integer "status", default: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "type"
+  end
+
+  create_table "borrows", force: :cascade do |t|
+    t.bigint "staffs_id"
+    t.bigint "assets_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assets_id"], name: "index_borrows_on_assets_id"
+    t.index ["staffs_id"], name: "index_borrows_on_staffs_id"
+  end
 
   create_table "jwt_denylist", force: :cascade do |t|
     t.string "jti", null: false
     t.datetime "exp", null: false
     t.index ["jti"], name: "index_jwt_denylist_on_jti"
+  end
+
+  create_table "lents", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "staffs_id"
+    t.bigint "assets_id"
+    t.index ["assets_id"], name: "index_lents_on_assets_id"
+    t.index ["staffs_id"], name: "index_lents_on_staffs_id"
+  end
+
+  create_table "staffs", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "department"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -32,4 +68,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_070217) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "borrows", "assets", column: "assets_id"
+  add_foreign_key "borrows", "staffs", column: "staffs_id"
+  add_foreign_key "lents", "assets", column: "assets_id"
+  add_foreign_key "lents", "staffs", column: "staffs_id"
 end
