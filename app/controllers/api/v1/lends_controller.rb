@@ -1,16 +1,17 @@
 class Api::V1::LendsController < ApplicationController
     def index
-        @q = Lend.includes([:staff,:asset]).ransack(params[:q])
-        @lends = @q.result(distinct: true)
-     #   render json: @lends
-     #   @lends = Lend.includes([:staff,:asset]).all
-       render json: @lends.as_json(except: [:staff_id, :asset_id, :created_at, :updated_at], include: { staff: { only: [:id, :name, :department]}, asset: {only: [:id, :name, :asset_type]}})
+            
+          @lends = Lend.includes([:staff,:asset]).all
+
+    #     @q = Lend.includes([:staff,:asset]).ransack(params[:q])
+    #     @lends = @q.result(distinct: true)
+
+        render json: @lends.as_json(except: [:staff_id, :asset_id, :created_at, :updated_at], include: { staff: { only: [:id, :name, :department]}, asset: {only: [:id, :name, :asset_type]}})
     end
 
     def show
         @lends = Lend.includes([:staff,:asset]).find(params[:id])
         render json: @lends.as_json(except: [:staff_id, :asset_id], include: { staff: { only: [:id, :name, :department]}, asset: {only: [:id, :name, :asset_type]}})
-    
     end
   
     def create

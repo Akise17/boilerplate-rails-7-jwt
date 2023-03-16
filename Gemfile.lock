@@ -108,6 +108,8 @@ GEM
       concurrent-ruby (~> 1.0)
     dry-core (0.8.1)
       concurrent-ruby (~> 1.0)
+    email_validator (2.2.4)
+      activemodel
     erubi (1.10.0)
     figaro (1.2.0)
       thor (>= 0.14.0, < 2)
@@ -264,6 +266,7 @@ DEPENDENCIES
   debug
   devise
   devise-jwt
+  email_validator
   figaro
   importmap-rails
   pg (>= 0.18, < 2.0)
