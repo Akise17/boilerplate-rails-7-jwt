@@ -1,14 +1,21 @@
 class Api::V1::StaffsController < ApplicationController
     def index
         @staffs = Staff.all
+
+        #to show only the staffs data
         render json: @staffs
+
+        #to show lend data when listing all staff
+        #render json: @staffs.to_json(include: {lends: {only: [:id,:asset_id,:lend_status]}})
     end
 
     def show
       @staff = Staff.find(params[:id])
       @lends = @staff.lends.includes([:staff,:asset])
-      render json: [@staff,
-                    @lends.as_json(except: [:asset_id,:staff_id], include: {asset: {only: [:id, :name, :asset_type]}})]
+      @count = {number_of_asset_borrowed: @staff.lends.count}
+      render json: [@staff, @count,
+                    @lends.as_json(except: [:asset_id,:staff_id], include: {asset: {only: [:id, :name, :asset_type]}})
+                    ]
     end
   
     def create
