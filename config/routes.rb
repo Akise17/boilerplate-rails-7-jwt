@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :test
+      resources :staffs
+      resources :assets
+      resources :lents
+      resources :borrows
     end
   end
 end
