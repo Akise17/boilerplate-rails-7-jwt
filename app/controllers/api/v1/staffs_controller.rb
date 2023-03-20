@@ -13,9 +13,20 @@ class Api::V1::StaffsController < ApplicationController
       @staff = Staff.find(params[:id])
       @lends = @staff.lends.includes([:staff,:asset])
       @count = {number_of_asset_borrowed: @staff.lends.count}
-      render json: [@staff, @count,
-                    @lends.as_json(except: [:asset_id,:staff_id], include: {asset: {only: [:id, :name, :asset_type]}})
-                    ]
+      render json: [
+        @staff.as_json(root: 'staffs'),
+        @count,
+        @lends.as_json(
+          except: [:asset_id,:staff_id],
+          include: {
+            asset: {
+              only: [:id, :name, :asset_type],
+              root: 'assets'
+            }
+          },
+          root: 'lends' # include table name for lends
+        )
+      ]
     end
   
     def create

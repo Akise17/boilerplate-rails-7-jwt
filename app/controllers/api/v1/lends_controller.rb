@@ -26,7 +26,7 @@ class Api::V1::LendsController < ApplicationController
   
     def update
       @lend = Lend.find(params[:id])
-      @asset = Asset.where(id: @lend.asset_id)
+      @asset = Asset.find(@lend.asset_id)
 
       if @lend.update(lend_params)
             if @lend.lend_status == "Lended"
